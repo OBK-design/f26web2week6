@@ -148,6 +148,12 @@ table {
 /********************************
 			Custom Properties
 ********************************/
+/* :root is a style that applies to all your css and html*/
+
+:root {
+  /*you can use these value in your code as many times as you like*/
+  --mud-brown: #542401;
+}
 
 /********************************
 			Main
@@ -196,8 +202,12 @@ main {
   /* box-sizing: border-box makes the browser include the padding and border within
   the total width set for the elemnt - meaning  adding padding and border will not add extra width */
   box-sizing: border-box;
-  border: 25px solid #542401;
-  border-radius: 25px;
+  /* the var call a custom property you set*/
+  border: 25px solid var(--mud-brown);
+  border-top: 0;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+
   /* corner-shape allows you to control the style of the rounded border:
 	round, squircle, square, bevel, scoop, notch... */
   /* for box shadow, the values are:
@@ -232,6 +242,116 @@ nth-child(5n + 2) meaning every 5th staring with the 7th
 
 main section:nth-child(2n) {
   justify-self: end;
-
-  
 }
+
+/********   type effect and pseudo elements   *********/
+
+article {
+  background-color: white;
+  border: 1px solid #aaa;
+  box-shadow: 2px 2px 4px rgb(50 50 50);
+}
+header article {
+  margin: 20px 0;
+  padding: 10px;
+}
+
+section article {
+  padding: 23px;
+  position: relative;
+  /* make this position:relative, so it will hold the position:absolute
+  pseudo elements we are going to put insite it */
+}
+
+section article img {
+  /* a space means go inside the element, this targets only images inside of article inside of sections*/
+  max-width: 100%;
+}
+
+section article::before {
+  /* ::before is a pseudo element - every HTML element has a ::before and a ::after */
+  content: "";
+  /* before and after don't exist until you put content in them, but you 
+	can add just an empty space if you don't want text*/
+  width: 160px;
+  height: 45px;
+  /* with rgb and hsl, you can add a alpha chanel, or transparency*/
+  background-color: rgba(222, 222, 222, 0.6);
+
+  /* pseudo elements have to be positioned using absolute */
+  position: absolute;
+  left: calc(50% - 80px);
+  top: -23px; /* negative  value to push it up, rather than down */
+  transform: rotate(-15deg);
+}
+
+/* other pseudo classes include: first-line, first letter, and select */
+
+H1 span {
+  /* ::first-letter only works on block element, so if you use spans,
+	you have to make them block*/
+  display: block;
+}
+
+H1 span::first-letter {
+  font-family: "moo lah lah", cursive;
+  font-size: 1.3em;
+}
+
+p::selection {
+  /* changes the colour when you highlight the text*/
+  color: orangered;
+  background-color: #542401;
+}
+
+/**************** direct slectors and dropdown nav ***************/
+
+nav {
+  font-size: 2em;
+  /* em is a relative mesurer based on font size, 2em = two time the font size */
+  width: 960px;
+  margin: 0 auto;
+  background-color: var(--mud-brown);
+
+  border-top-left-radius: 25px;
+
+  border-top-right-radius: 25px;
+
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  /* z-index is like layers, but they are arbitrary...
+  by default everything is on layer 1, and anything higher is "on top"*/
+}
+/* the > is the direct child selector, which means select only the ul
+wich is a direct child (not a greandchild or greater) of the nav */
+
+nav > ul {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 20px;
+}
+/*select only the li that direct children of the ul, which is a direct child of the nav*/
+nav > ul > li {
+  padding: 0 10px;
+  position: relative;
+  /* position:relative to it will hold the absolutely positioned dropdown*/
+}
+
+nav ul ul {
+  display: none;
+}
+
+nav ul li:hover ul {
+  display: block;
+  position: absolute;
+  background-color: var(--mud-brown);
+}
+
+nav a {
+  color: white;
+  text-decoration: none; /* removes underlines*/
+}
+
+/*********** attribute selectors ******************/
+/**/
